@@ -40,7 +40,8 @@ describe('#Account', function(){
       }
       else
       {
-        assert(result.id > 0, "Id deve ser maior que zero");
+        assert(result.length > 0, "Id deve ser maior que zero");
+        assert(result[0].id > 0, "Id deve ser maior que zero");
       }
 
       done();
