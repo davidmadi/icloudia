@@ -13,30 +13,22 @@ function AccountCRUD(app)
   });
 
   app.post("/signup/create", function(req, res){
-      req.checkBody("email", "Enter a valid email address.").isEmail();
-      console.log("cca");
-      const accountDAO = global.rootRequire('app/infra/account/accountDAO')();
+    req.checkBody("email", "Por favor preencha o email.").isEmail();
+    req.checkBody("name", "Por favor preencha o Nome.").exists();
+    const accountDAO = global.rootRequire('app/infra/account/accountDAO')();
 
-      var errors = req.validationErrors();
-      if (errors) {
-        res.json({errors: errors});
-        return;
-      } else {
-        // normal processing here
-      }
-
-      //bodyValidation.assertNotEmpty(req, ['email', 'password', 'name']);
-
-      //if (bodyValidation.emptyError(req, res, true))
-      //{
-      //  const logging = accountDAO.save(req.body, function(error, result){
-      //    global.BaseCrud.responseQuery(req, res, error, result);
-      //    res.end();
-      //  })
-      //}
-      res.json(req.body);
+    var errors = req.validationErrors();
+    if (errors) {
+      res.json({errors: errors});
+    } else {
+      accountDAO.save(req.body, function(err, result){
+        if (err)
+          res.json({errors:[{msg: err.message}]});
+        else
+          res.json(result);
+      });
     }
-  );
+  });
 
   app.post("/login", function(req, res){
     const accountDAO = global.rootRequire('app/infra/account/accountDAO')();

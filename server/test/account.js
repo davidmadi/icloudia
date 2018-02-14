@@ -23,23 +23,26 @@ describe('#Account', function(){
 
   it('#Create',function(done){    
 
-    supertest.post('/create')
+    supertest.post('/signup/create')
     .set('Accept','application/json')
     .type('form')
-    .send({'email': 'davidmadi@gmail.com','password': 'hagadol', 'name':'david madi'})
+    .send({'email': 'davidmadi@gmail.com', 'name':'david madi'})
     .expect('Content-Type',/application\/json/)
     .expect(200)
     .end(function(err, res){
 
-      //var result = JSON.parse(res);
-//
-      //if (result.errors)
-      //{
-      //  console.log(result.errors);
-      //  assert(result.errors.length == 0, result.errors[0].msg);
-      //}
+      
+      var result = JSON.parse(res.text);
+      if (result.errors)
+      {
+        console.log(result.errors);
+        assert(result.errors.length == 0, result.errors[0].msg);
+      }
+      else
+      {
+        assert(result.id > 0, "Id deve ser maior que zero");
+      }
 
-      //assert(result.email == 'davidmadi@gmail.com')
       done();
     });
     
