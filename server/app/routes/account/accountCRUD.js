@@ -24,8 +24,8 @@ function AccountCRUD(app)
       accountDAO.save(req.body, function(err, result){
         if (err)
           res.json({errors:[{msg: err.message}]});
-        else
-          res.json(result);
+        else  
+          res.json(result.rows);
       });
     }
   });

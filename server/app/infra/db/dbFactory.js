@@ -16,7 +16,7 @@ module.exports = function() {
     }      
   }
 
-  var client = new Client({
+  const client = new Client({
     connectionString: this.getConnString()
   })
   return client;
