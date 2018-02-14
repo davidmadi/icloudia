@@ -1,0 +1,6 @@
+{
+  postgresql: {
+    strategy: 'truncation',
+    skipTables: []
+  }
+}
